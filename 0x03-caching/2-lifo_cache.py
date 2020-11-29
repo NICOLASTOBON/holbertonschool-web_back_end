@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ LIFO Caching """
 from collections import OrderedDict
-BaseCaching = __import__('base_caching').BaseCaching
+from base_caching import BaseCaching
 
 
 class LIFOCache(BaseCaching):
@@ -26,6 +26,6 @@ class LIFOCache(BaseCaching):
 
     def get(self, key):
         """ Get value linked to key """
-        if key is not None or key in self.cache_data:
+        if key is not None and key in self.cache_data:
             return self.cache_data[key]
         return None
