@@ -20,9 +20,7 @@ class FIFOCache(BaseCaching):
             print("DISCARD: {}".format(last))
 
     def get(self, key):
-        """ Return the values of dictionary """
-        try:
-            if key in self.cache_data:
-                return self.cache_data[key]
-        except KeyError:
-            return None
+        """ Getter method """
+        if key in self.cache_data and key is not None:
+            return self.cache_data[key]
+        return None
