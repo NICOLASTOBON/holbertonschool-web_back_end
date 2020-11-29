@@ -8,7 +8,7 @@ class FIFOCache(BaseCaching):
     """ Class FIFO """
     def __init__(self):
         """ Initialization """
-        super().__init__()
+        super(FIFOCache, self).__init__()
         self.cache_data = OrderedDict()
 
     def put(self, key, item):
