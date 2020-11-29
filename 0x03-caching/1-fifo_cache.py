@@ -18,8 +18,8 @@ class FIFOCache(BaseCaching):
 
         if len(self.cache_data) > BaseCaching.MAX_ITEMS:
             dequeue = list(self.cache_data)[0]
+            self.cache_data.pop(dequeue)
             print("DISCARD: {}".format(dequeue))
-            del self.cache_data[dequeue]
 
     def get(self, key):
         """ Return the values of dictionary """
