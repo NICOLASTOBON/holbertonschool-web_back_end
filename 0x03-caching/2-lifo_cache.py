@@ -9,7 +9,6 @@ class LIFOCache(BaseCaching):
 
     def __init__(self):
         """ Override superclass __init__ """
-        super().__init__()
         self.cache_data = OrderedDict()
 
     def put(self, key, item):
