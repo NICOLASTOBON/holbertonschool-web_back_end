@@ -11,15 +11,14 @@ class FIFOCache(BaseCaching):
         super().__init__()
 
     def put(self, key, item):
-        """ Inset a values in dictionary """
-
-        if key and item:
-            self.cache_data[key] = item
-
+        """ Setter method """
+        if key is None or item is None:
+            return None
+        self.cache_data[key] = item
         if len(self.cache_data) > BaseCaching.MAX_ITEMS:
-            dequeue = list(self.cache_data)[0]
-            self.cache_data.pop(dequeue)
-            print("DISCARD: {}".format(dequeue))
+            last = list(self.cache_data.keys())[0]
+            self.cache_data.pop(last)
+            print("DISCARD: {}".format(last))
 
     def get(self, key):
         """ Return the values of dictionary """
