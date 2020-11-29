@@ -1,16 +1,13 @@
 #!/usr/bin/python3
-""" 1. FIFO caching """
-from collections import OrderedDict
+""" FIFO """
 BaseCaching = __import__('base_caching').BaseCaching
 
 
 class FIFOCache(BaseCaching):
-    """ Basic Cache class """
-
+    """ Class FIFO """
     def __init__(self):
-        """ Override superclass __init__ """
-        super(FIFOCache, self).__init__()
-        self.cache_data = OrderedDict()
+        """ Initialization """
+        super().__init__()
 
     def put(self, key, item):
         """ Setter method """
@@ -18,13 +15,14 @@ class FIFOCache(BaseCaching):
             return None
         self.cache_data[key] = item
         if len(self.cache_data) > BaseCaching.MAX_ITEMS:
-            # print("CACHE {}".format(self.cache_data))
-            last = list(self.cache_data.keys())[0]
+            last = list(self.cache_data)[0]
             self.cache_data.pop(last)
             print("DISCARD: {}".format(last))
 
     def get(self, key):
-        """ Getter method """
-        if key in self.cache_data and key is not None:
-            return self.cache_data[key]
-        return None
+        """ Return the values of dictionary """
+        try:
+            if key in self.cache_data:
+                return self.cache_data[key]
+        except KeyError:
+            return None
