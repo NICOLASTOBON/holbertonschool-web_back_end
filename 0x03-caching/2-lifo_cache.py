@@ -16,9 +16,11 @@ class LIFOCache(BaseCaching):
         """ Put element in dictionary """
         if key is None or item is None:
             return None
+        if key in self.cache_data.keys():
+            self.cache_data.pop(key)
         self.cache_data[key] = item
         if len(self.cache_data) > BaseCaching.MAX_ITEMS:
-            last = list(self.cache_data.keys())[-2]
+            last = list(self.cache_data)[-2]
             self.cache_data.pop(last)
             print("DISCARD: {}".format(last))
 
