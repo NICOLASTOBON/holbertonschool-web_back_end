@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ LIFO Caching """
 from collections import OrderedDict
-from base_caching import BaseCaching
+BaseCaching = __import__('base_caching').BaseCaching
 
 
 class LIFOCache(BaseCaching):
@@ -9,6 +9,7 @@ class LIFOCache(BaseCaching):
 
     def __init__(self):
         """ Override superclass __init__ """
+        super().__init__()
         self.cache_data = OrderedDict()
 
     def put(self, key, item):
