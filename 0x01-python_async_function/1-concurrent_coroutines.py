@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.7
+#!/usr/bin/env python3
 """ return list """
 
 wait_random = __import__('0-basic_async_syntax').wait_random
