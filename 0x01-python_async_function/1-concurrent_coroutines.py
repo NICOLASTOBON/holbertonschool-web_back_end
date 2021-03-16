@@ -2,9 +2,10 @@
 """ return list """
 
 wait_random = __import__('0-basic_async_syntax').wait_random
+from typing import List
 
 
-async def wait_n(n: int, max_delay: int) -> list:
+async def wait_n(n: int, max_delay: int) -> List[float]:
     """ Return list """
     list_random_numbers = [await wait_random(max_delay) for _ in range(n)]
 
