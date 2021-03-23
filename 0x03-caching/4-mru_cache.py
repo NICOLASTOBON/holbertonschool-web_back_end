@@ -30,7 +30,5 @@ class MRUCache(BaseCaching):
         if key in self.cache_data:
             self.__stack.remove(key)
             self.__stack.appendleft(key)
-            print(self.__stack)
-            print(self.cache_data)
             return self.cache_data[key]
         return None
