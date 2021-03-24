@@ -40,14 +40,20 @@ class Server:
     def get_hyper(self, page: int = 1, page_size: int = 10) -> Dict[str, Any]:
         """ Hypermedia pagination """
         data = self.get_page(page, page_size)
+        data_len = len(data)
+
+        next_page = (page + 1) if data_len > 0 else None
+        prev_page = (page - 1) if page > 1 else None
+
+        total_page = math.ceil(len(self.__dataset) / page_size)
 
         new_dict = {
-            'page_size': len(data),
+            'page_size': data_len,
             'page': page,
             'data': data,
-            'next_page': (page + 1) if len(data) > 0 else None,
-            'prev_page': (page - 1) if page > 1 else None,
-            'tota_page': math.ceil((len(self.__dataset) - 1) / page_size)
+            'next_page': next_page,
+            'prev_page': prev_page,
+            'tota_page': total_page
         }
 
         return new_dict
