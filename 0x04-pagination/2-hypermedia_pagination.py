@@ -3,9 +3,16 @@
 
 import csv
 import math
-from typing import List
+from typing import List, Tuple
 
-index_range = __import__('0-simple_helper_function').index_range
+
+def index_range(page: int, page_size: int) -> Tuple[int, int]:
+    """ Simple helper function """
+
+    start = (page - 1) * page_size
+    end = page * page_size
+
+    return (start, end)
 
 
 class Server:
