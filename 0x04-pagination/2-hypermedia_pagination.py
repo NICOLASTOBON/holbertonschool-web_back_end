@@ -46,7 +46,7 @@ class Server:
 
         total_pages = math.ceil(data_set / page_size)
 
-        next_page = (page + 1) if data_len > 0 else None
+        next_page = (page + 1) if page < total_pages else None
         prev_page = (page - 1) if page > 1 else None
 
         new_dict = {
