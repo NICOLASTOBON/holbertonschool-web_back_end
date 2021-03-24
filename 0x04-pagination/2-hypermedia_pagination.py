@@ -42,12 +42,12 @@ class Server:
         data = self.get_page(page, page_size)
 
         new_dict = {
-            "page_size": len(data),
-            "page": page,
-            "data": data,
-            "next_page": (page + 1) if len(data) > 0 else None,
-            "prev_page": (page - 1) if page > 1 else None,
-            "tota_page": math.ceil((len(self.__dataset) - 1) / page_size)
+            'page_size': len(data),
+            'page': page,
+            'data': data,
+            'next_page': (page + 1) if len(data) > 0 else None,
+            'prev_page': (page - 1) if page > 1 else None,
+            'tota_page': math.ceil((len(self.__dataset) - 1) / page_size)
         }
 
         return new_dict
