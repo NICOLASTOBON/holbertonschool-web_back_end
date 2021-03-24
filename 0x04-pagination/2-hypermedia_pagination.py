@@ -3,16 +3,9 @@
 
 import csv
 import math
-from typing import List, Tuple
+from typing import List
 
-
-def index_range(page: int, page_size: int) -> Tuple[int, int]:
-    """ Simple helper function """
-
-    start = (page - 1) * page_size
-    end = page * page_size
-
-    return (start, end)
+index_range = __import__('0-simple_helper_function').index_range
 
 
 class Server:
@@ -45,7 +38,7 @@ class Server:
         return data[idx:end]
 
     def get_hyper(self, page: int = 1, page_size: int = 10) -> dict:
-        """ Provides information about dataset """
+        """ Hypermedia pagination """
         data = self.get_page(page, page_size)
 
         data_set = self.__dataset
@@ -58,16 +51,16 @@ class Server:
         else:
             page_size = len(data)
 
-        prev_page = page - 1 if page > 1 else None
         next_page = page + 1 if page < total_pages else None
+        prev_page = page - 1 if page > 1 else None
 
-        hyper = {
+        new_dict = {
             'page_size': page_size,
             'page': page,
             'data': data,
             'next_page': next_page,
             'prev_page': prev_page,
-            'total_pages': total_pages
+            'tota_page': total_pages
         }
 
-        return hyper
+        return new_dict
