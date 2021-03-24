@@ -3,7 +3,7 @@
 
 import csv
 import math
-from typing import List, Dict, Any
+from typing import List
 
 index_range = __import__('0-simple_helper_function').index_range
 
@@ -37,7 +37,7 @@ class Server:
 
         return data[idx:end]
 
-    def get_hyper(self, page: int = 1, page_size: int = 10) -> Dict[str, Any]:
+    def get_hyper(self, page: int = 1, page_size: int = 10) -> dict:
         """ Hypermedia pagination """
         data = self.get_page(page, page_size)
         data_len = len(data)
