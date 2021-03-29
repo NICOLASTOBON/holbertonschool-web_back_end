@@ -21,7 +21,7 @@ class RedactingFormatter(logging.Formatter):
 
     def __init__(self, fields: List[str]):
         super(RedactingFormatter, self).__init__(self.FORMAT)
-        self.fields = fields
+        self.fields = list(fields)
 
     def format(self, record: logging.LogRecord) -> str:
         NotImplementedError
@@ -38,7 +38,7 @@ def filter_datum(fields: List[str], redaction: str, message: str,
                  separator: str) -> str:
     """ returns the log message """
     for fld in fields:
-        message = re.sub(f'(?<={fld}=).*?(?={separator})', redaction, message)
+        message = re.sub(f"(?<={fld}=).*?(?={separator})", redaction, message)
     return message
 
 
