@@ -35,7 +35,11 @@ class RedactingFormatter(logging.Formatter):
 
 
 def filter_datum(
-        fields: list, redaction: str, message: str, separator: str) -> str:
+        fields: List[str],
+        redaction: str,
+        message: str,
+        separator: str
+        ) -> str:
     """
     returns the log message
     """
