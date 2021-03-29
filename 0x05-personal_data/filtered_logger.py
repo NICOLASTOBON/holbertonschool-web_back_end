@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+""" This module creates a filter_datum function """
 
 import re
 import os
@@ -25,21 +26,17 @@ class RedactingFormatter(logging.Formatter):
 
     def format(self, record: logging.LogRecord) -> str:
         NotImplementedError
-        msg = record.getMessage()
-        record.msg = filter_datum(
-            self.fields,
-            self.REDACTION,
-            msg,
-            self.SEPARATOR)
-        return super().format(record)
+        mesagge = super().format(record)
+        mesagge_formatter = filter_datum(
+            self.fields, self.REDACTION, mesagge, self.SEPARATOR)
+        return mesagge_formatter
 
 
 def filter_datum(fields: List[str], redaction: str, message: str,
                  separator: str) -> str:
-    """ Returns the log message obfuscated """
-    for field in fields:
-        message = re.sub(
-            f"(?<={field}=).*?(?={separator})", redaction, message)
+    """ returns the log message """
+    for fld in fields:
+        message = re.sub(f"(?<={fld}=).*?(?={separator})", redaction, message)
     return message
 
 
