@@ -31,13 +31,13 @@ def before_request():
         '/api/v1/forbidden/'
     ]
 
-    require = auth.require_auth(request.path, list_of_paths)
-
-    if auth and require:
-        if auth.authorization_header(request) == None:
-            abort(401)
-        if auth.current_user(request) == None:
-            abort(403)
+    if auth:
+        require = auth.require_auth(request.path, list_of_paths)
+        if require:
+            if auth.authorization_header(request) == None:
+                abort(401)
+            if auth.current_user(request) == None:
+                abort(403)
 
 
 @app.errorhandler(404)
