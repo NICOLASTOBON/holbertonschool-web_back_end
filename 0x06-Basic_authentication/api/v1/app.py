@@ -34,9 +34,9 @@ def before_request_func():
     if auth:
         require = auth.require_auth(request.path, list_of_paths)
         if require:
-            if auth.authorization_header(request) == None:
+            if auth.authorization_header(request) is None:
                 abort(401)
-            if auth.current_user(request) == None:
+            if auth.current_user(request) is None:
                 abort(403)
 
 
