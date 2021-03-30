@@ -26,7 +26,6 @@ class Auth:
         except KeyError:
             return None
 
-
     def current_user(self, request=None) -> TypeVar('User'):
         """ get current user"""
         return None
