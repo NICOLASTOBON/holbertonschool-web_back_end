@@ -20,7 +20,7 @@ if os.getenv('AUTH_TYPE'):
     auth = Auth()
 
 
-@app.before_request
+@app.before_request()
 def before_request():
     """
     execute a function before any request
