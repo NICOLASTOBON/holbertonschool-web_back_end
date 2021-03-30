@@ -13,15 +13,18 @@ class Auth:
         if path and excluded_paths:
             if path[-1] != '/':
                 path += '/'
-            if path in excluded_paths:
-                return False
+            for pth in excluded_paths:
+                if path == pth:
+                    return False
         return True
 
     def authorization_header(self, request=None) -> str:
         """ header of authorization """
-        if request:
-            return request.headers.get('Authorization')
-        return None
+        try:
+            if request and request.headers['Authorization']:
+                return request.headers['Authorization']
+        except KeyError:
+            return None
 
 
     def current_user(self, request=None) -> TypeVar('User'):
