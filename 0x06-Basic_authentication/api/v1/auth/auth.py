@@ -20,7 +20,12 @@ class Auth:
 
     def authorization_header(self, request=None) -> str:
         """ header of authorization """
-        return None
+        try:
+            if request and request.headers['Authorization']:
+                return request.headers['Authorization']
+        except KeyError:
+            return None
+
 
     def current_user(self, request=None) -> TypeVar('User'):
         """ get current user"""
