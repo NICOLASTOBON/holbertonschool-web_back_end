@@ -21,7 +21,7 @@ class Auth:
                 if pth[-1] == '*':
                     pth = pth.replace('*', '.*')
 
-                if re.search(f'({pth})', path):
+                if re.search(pth, path):
                     return False
 
         return True
