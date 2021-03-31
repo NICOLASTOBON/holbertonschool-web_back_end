@@ -15,11 +15,13 @@ class BasicAuth(Auth):
     def extract_base64_authorization_header(
             self, authorization_header: str) -> str:
         """ Basic - Base64 part """
-        if authorization_header and isinstance(authorization_header, str):
-            if 'Basic ' in authorization_header:
-                if authorization_header[0:6] == 'Basic ':
-                    return authorization_header[6:]
-        return None
+        try:
+            if authorization_header and isinstance(authorization_header, str):
+                if 'Basic ' in authorization_header:
+                    if authorization_header[0:6] == 'Basic ':
+                        return authorization_header[6:]
+        except Exception:
+            return None
 
     def decode_base64_authorization_header(
             self, base64_authorization_header: str) -> str:
@@ -28,7 +30,7 @@ class BasicAuth(Auth):
                 isinstance(base64_authorization_header, str):
             try:
                 return base64.b64decode(base64_authorization_header).decode()
-            except base64.binascii.Error:
+            except Exception:
                 return None
 
     def extract_user_credentials(
@@ -40,7 +42,7 @@ class BasicAuth(Auth):
         if decoded_base64_authorization_header and \
                 isinstance(decoded_base64_authorization_header, str):
             if ':' in decoded_base64_authorization_header:
-                return tuple(decoded_base64_authorization_header.split(':'))
+                return tuple(decoded_base64_authorization_header.split(':', 1))
         return (None, None)
 
     def user_object_from_credentials(
