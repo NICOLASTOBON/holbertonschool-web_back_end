@@ -2,8 +2,10 @@
 """ Basic Authorization """
 
 import base64
-from typing import Tuple
+from typing import Tuple, TypeVar
 from api.v1.auth.auth import Auth
+from models.user import User
+import json
 
 
 class BasicAuth(Auth):
@@ -38,3 +40,15 @@ class BasicAuth(Auth):
             if ':' in decoded_base64_authorization_header:
                 return tuple(decoded_base64_authorization_header.split(':'))
         return (None, None)
+
+    def user_object_from_credentials(
+            self, user_email: str, user_pwd: str) -> TypeVar('User'):
+        """ User Object """
+        try:
+            if user_email and isinstance(user_email, str) and \
+                    user_pwd and isinstance(user_pwd, str):
+                user = User.search({'email': user_email})
+                if user[0].is_valid_password(user_pwd):
+                    return user[0]
+        except Exception:
+            return None
