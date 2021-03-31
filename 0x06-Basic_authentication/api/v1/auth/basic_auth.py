@@ -3,6 +3,8 @@
 
 import base64
 from typing import Tuple, TypeVar
+
+from werkzeug.wrappers import AuthorizationMixin
 from api.v1.auth.auth import Auth
 from models.user import User
 import json
@@ -52,3 +54,12 @@ class BasicAuth(Auth):
                     return user[0]
         except Exception:
             return None
+
+    def current_user(self, request=None) -> TypeVar('User'):
+        """ return user """
+        authorization = self.authorization_header(request)
+        auth_header = self.extract_base64_authorization_header(authorization)
+        decode_auth = self.decode_base64_authorization_header(auth_header)
+        email, password = self.extract_user_credentials(decode_auth)
+        current_usr = self.user_object_from_credentials(email, password)
+        return current_usr
