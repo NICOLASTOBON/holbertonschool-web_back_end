@@ -40,7 +40,7 @@ def before_request_func():
         if require:
             if auth.authorization_header(request) is None:
                 abort(401)
-            
+
             current_usr = auth.current_user(request)
             if current_usr is None:
                 abort(403)
