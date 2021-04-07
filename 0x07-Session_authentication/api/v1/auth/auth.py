@@ -2,8 +2,9 @@
 """ DocDocDocDocDocDoc
 """
 import re
-from typing import List, TypeVar
+import os
 from flask import request
+from typing import List, TypeVar
 
 
 class Auth:
@@ -36,4 +37,11 @@ class Auth:
 
     def current_user(self, request=None) -> TypeVar('User'):
         """ get current user"""
+        return None
+
+    def session_cookie(self, request=None):
+        """ method that return a cookie value from requests """
+        if request:
+            session = os.getenv('SESSION_NAME')
+            return request.cookies.get(session)
         return None
