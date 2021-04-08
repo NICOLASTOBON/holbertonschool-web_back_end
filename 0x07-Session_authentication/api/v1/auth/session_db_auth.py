@@ -23,6 +23,7 @@ class SessionDBAuth(SessionExpAuth):
         """
         if not session_id:
             return None
+        UserSession.load_from_file()
         users = UserSession.search({'session_id': session_id})
         for u in users:
             delta = timedelta(seconds=self.session_duration)
