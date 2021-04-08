@@ -23,12 +23,12 @@ class SessionExpAuth(SessionAuth):
         """
         session_id = super().create_session(user_id)
         if session_id:
-            session_dict = {}
             date = datetime.now()
-            session_dict['user_id'] = user_id
-            session_dict['created_at'] = date
-
-            self.user_id_by_session_id[session_id] = session_dict
+            session_dictionary = {
+                "user_id": user_id,
+                "created_at": date
+            }
+            self.user_id_by_session_id[session_id] = session_dictionary
             return session_id
         return None
 
