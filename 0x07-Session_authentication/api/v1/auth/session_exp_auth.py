@@ -34,24 +34,21 @@ class SessionExpAuth(SessionAuth):
 
     def user_id_for_session_id(self, session_id=None):
         """ method that return a User """
-        if session_id is None:
-            return None
-        if self.user_id_by_session_id[session_id] is None:
-            return None
+        try:
+            if session_id and self.user_id_by_session_id[session_id]:
 
-        usr_inf = self.user_id_by_session_id.get(session_id)
-        if not usr_inf:
-            return None
+                usr_inf = self.user_id_by_session_id.get(session_id)
+                if not usr_inf:
+                    return None
 
-        if self.session_duration <= 0:
-            return usr_inf.get('user_id')
+                if self.session_duration <= 0:
+                    return usr_inf.get('user_id')
 
-        # get date from session_dict
-        created = usr_inf.get('created_at')
-        if created is None:
+                # get date from session_dict
+                created = usr_inf.get('created_at')
+                if created:
+                    exp_dt = created + timedelta(seconds=self.session_duration)
+                    if exp_dt > datetime.now():
+                        return usr_inf.get('user_id')
+        except Exception:
             return None
-
-        exp_dt = created + timedelta(seconds=self.session_duration)
-        if exp_dt < datetime.now():
-            return None
-        return usr_inf.get('user_id')
