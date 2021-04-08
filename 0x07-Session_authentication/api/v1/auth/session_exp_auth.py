@@ -37,13 +37,15 @@ class SessionExpAuth(SessionAuth):
         try:
             if session_id and self.user_id_by_session_id[session_id]:
 
-                usr_inf = self.user_id_by_session_id[session_id]
+                usr_inf = self.user_id_by_session_id.get(session_id)
+                if not usr_inf:
+                    return None
 
                 if self.session_duration <= 0:
                     return usr_inf.get('user_id')
 
                 # get date from session_dict
-                created = usr_inf['created_at']
+                created = usr_inf.get('created_at')
                 if created:
                     exp_dt = created + timedelta(seconds=self.session_duration)
                     if exp_dt > datetime.now():
