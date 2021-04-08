@@ -23,13 +23,9 @@ class SessionDBAuth(SessionExpAuth):
         """
         if not session_id:
             return None
-        UserSession.load_from_file()
         users = UserSession.search({'session_id': session_id})
         for u in users:
-            delta = timedelta(seconds=self.session_duration)
-            if u.created_at + delta < datetime.now():
-                return None
-            return u.user_id
+            super().user_id_for_session_id(u.session_id)
 
     def destroy_session(self, request=None):
         """Delete the user session / log out
