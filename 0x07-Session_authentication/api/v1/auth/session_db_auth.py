@@ -25,7 +25,7 @@ class SessionDBAuth(SessionExpAuth):
             return None
         users = UserSession.search({'session_id': session_id})
         for u in users:
-            super().user_id_for_session_id(u.session_id)
+            return super().user_id_for_session_id(u.session_id)
 
     def destroy_session(self, request=None):
         """Delete the user session / log out
