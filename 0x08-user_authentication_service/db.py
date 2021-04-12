@@ -36,7 +36,4 @@ class DB:
 
     def find_user_by(self, **kwargs):
         """ method that find a user """
-        user = self._session.query(User).filter_by(**kwargs).first()
-        if not user:
-            raise NoResultFound
-        return user
+        return self._session.query(User).filter_by(**kwargs).one()
