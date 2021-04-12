@@ -11,7 +11,7 @@ from user import Base, User
 
 
 class DB:
-
+    """ Database class"""
     def __init__(self):
         """ method constructor that create a connection"""
         self._engine = create_engine("sqlite:///a.db", echo=True)
