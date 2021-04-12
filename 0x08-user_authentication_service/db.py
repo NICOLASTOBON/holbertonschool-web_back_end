@@ -40,8 +40,9 @@ class DB:
     def update_user(self, user_id: int, **kwargs) -> None:
         """ Method that update an user in the database """
         user = self.find_user_by(id=user_id)
-        new_usr = self._session.query(User)\
-                      .filter(user.id == user_id)\
-                      .update(kwargs)
-        if not new_usr:
+        try:
+            new_usr = self._session.query(User)\
+                        .filter(user.id == user_id)\
+                        .update(kwargs)
+        except Exception:
             raise ValueError
