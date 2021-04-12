@@ -41,7 +41,7 @@ class DB:
         """ Method that update an user in the database """
         user = self.find_user_by(id=user_id)
         try:
-            new_usr = self._session.query(user)\
+            self._session.query(User)\
                         .filter(user.id == user_id)\
                         .update(kwargs)
         except Exception:
