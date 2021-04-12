@@ -6,7 +6,7 @@ database file
 from user import Base, User
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.ext.declarative import declarative_base
 
 
@@ -36,4 +36,12 @@ class DB:
 
     def find_user_by(self, **kwargs):
         """ method that find a user """
+        if not kwargs:
+            raise InvalidRequestError
+
+        properties = User.__table__.columns.keys()
+        for key in kwargs.keys():
+            if key not in properties:
+                raise InvalidRequestError
+
         return self._session.query(User).filter_by(**kwargs).one()
