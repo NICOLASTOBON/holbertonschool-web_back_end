@@ -16,7 +16,7 @@ def basic():
 
 
 @app.route('/users', methods=['POST'], strict_slashes=False)
-def register_user() -> str:
+def users() -> str:
     """ function that register an User """
     data = dict(request.form)
     email = data.get('email')
