@@ -40,9 +40,11 @@ class DB:
     def update_user(self, user_id: int, **kwargs) -> None:
         """ Method that update an user in the database """
         user = self.find_user_by(id=user_id)
-        try:
-            self._session.query(User)\
-                        .filter(user.id == user_id)\
-                        .update(kwargs)
-        except Exception:
-            raise ValueError
+
+        columns = user.__table__.columns.keys()
+        for key, value in kwargs.items():
+            if key in columns and value is not None:
+                setattr(user, key, value)
+            else:
+                raise ValueError
+        self._session.commit()
