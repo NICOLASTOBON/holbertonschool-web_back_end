@@ -4,8 +4,8 @@ database file
 """
 
 from user import Base, User
-from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine, update
 from sqlalchemy.ext.declarative import declarative_base
 
 
@@ -36,3 +36,12 @@ class DB:
     def find_user_by(self, **kwargs) -> User:
         """ method that find a user """
         return self._session.query(User).filter_by(**kwargs).one()
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """ Method that update an user in the database """
+        user = self.find_user_by(id=user_id)
+        new_usr = self._session.query(User)\
+                      .filter(user.id == user_id)\
+                      .update(kwargs)
+        if not new_usr:
+            raise ValueError
