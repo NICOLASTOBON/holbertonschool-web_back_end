@@ -38,12 +38,21 @@ class DB:
         return self._session.query(User).filter_by(**kwargs).one()
 
     def update_user(self, user_id: int, **kwargs) -> None:
-        """ Method that update an user in the database """
+        """
+        Locates the user to update, then will update the user’s
+        attributes as passed in the method’s arguments and commit
+        changes to the database.
+        Args:
+        ----
+            user_id
+            arbitrary keyworded arguments
+        Returns:
+        -------
+            None
+        """
         user = self.find_user_by(id=user_id)
-
-        columns = user.__table__.columns.keys()
         for key, value in kwargs.items():
-            if key not in columns:
+            if key not in User.__table__.columns:
                 raise ValueError
             setattr(user, key, value)
         self._session.commit()
