@@ -43,7 +43,7 @@ class DB:
 
         columns = user.__table__.columns.keys()
         for key, value in kwargs.items():
-            if key not in columns or value is None:
+            if key not in columns:
                 raise ValueError
             setattr(user, key, value)
         self._session.commit()
