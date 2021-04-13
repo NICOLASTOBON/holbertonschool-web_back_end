@@ -17,6 +17,7 @@ class Auth:
     def __init__(self):
         """ method constructor """
         self._db = DB()
+        self.__id = None
 
     def register_user(self, email: str, password: str) -> User:
         """ method that register a new user """
@@ -38,11 +39,12 @@ class Auth:
         except NoResultFound:
             return False
 
-    def _generate_uuid(self) -> str:
-        """ function that generate a UUID """
-        return uuid.uuid4()
-
 
 def _hash_password(password: str) -> str:
     """ function that tranform a string to hash """
     return bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+
+
+def _generate_uuid() -> str:
+    """ function that generate a UUID """
+    return str(uuid.uuid4())
