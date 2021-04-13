@@ -6,6 +6,8 @@ database file
 from user import Base, User
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine, update
+from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.ext.declarative import declarative_base
 
 
@@ -34,8 +36,23 @@ class DB:
         return new_user
 
     def find_user_by(self, **kwargs) -> User:
-        """ method that find a user """
-        return self._session.query(User).filter_by(**kwargs).one()
+        """
+        Searches filtered by the method’s input arguments.
+        Args:
+        ----
+            arbitrary keyworded arguments
+        Returns:
+        -------
+            `User` object
+        """
+        if not kwargs:
+            raise InvalidRequestError
+        if not all(key in User.__table__.columns for key in kwargs):
+            raise InvalidRequestError
+        row = self._session.query(User).filter_by(**kwargs).first()
+        if not row:
+            raise NoResultFound
+        return row
 
     def update_user(self, user_id: int, **kwargs) -> None:
         """
