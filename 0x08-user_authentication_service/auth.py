@@ -40,7 +40,7 @@ class Auth:
 
     def _generate_uuid(self) -> str:
         """ function that generate a UUID """
-        return str(uuid.uuid4())
+        return uuid.uuid4()
 
 
 def _hash_password(password: str) -> str:
