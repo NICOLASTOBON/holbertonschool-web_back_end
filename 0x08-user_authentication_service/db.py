@@ -5,9 +5,7 @@ database file
 
 from user import Base, User
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy import create_engine, update
-from sqlalchemy.orm.exc import NoResultFound
-from sqlalchemy.exc import InvalidRequestError
+from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 
 
@@ -36,40 +34,16 @@ class DB:
         return new_user
 
     def find_user_by(self, **kwargs) -> User:
-        """
-        Searches filtered by the method’s input arguments.
-        Args:
-        ----
-            arbitrary keyworded arguments
-        Returns:
-        -------
-            `User` object
-        """
-        if not kwargs:
-            raise InvalidRequestError
-        if not all(key in User.__table__.columns for key in kwargs):
-            raise InvalidRequestError
-        row = self._session.query(User).filter_by(**kwargs).first()
-        if not row:
-            raise NoResultFound
-        return row
+        """ method that find a user """
+        return self._session.query(User).filter_by(**kwargs).one()
 
     def update_user(self, user_id: int, **kwargs) -> None:
-        """
-        Locates the user to update, then will update the user’s
-        attributes as passed in the method’s arguments and commit
-        changes to the database.
-        Args:
-        ----
-            user_id
-            arbitrary keyworded arguments
-        Returns:
-        -------
-            None
-        """
+        """ Method that update an user in the database """
         user = self.find_user_by(id=user_id)
+
+        columns = user.__table__.columns.keys()
         for key, value in kwargs.items():
-            if key not in User.__table__.columns:
+            if key not in columns:
                 raise ValueError
             setattr(user, key, value)
         self._session.commit()
