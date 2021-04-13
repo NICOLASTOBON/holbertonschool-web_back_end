@@ -3,6 +3,7 @@
 authorization file
 """
 
+import uuid
 import bcrypt
 from db import DB
 from user import User
@@ -36,6 +37,10 @@ class Auth:
                 )
         except NoResultFound:
             return False
+
+    def _generate_uuid(self) -> str:
+        """ function that generate a UUID """
+        return str(uuid.uuid4())
 
 
 def _hash_password(password: str) -> str:
