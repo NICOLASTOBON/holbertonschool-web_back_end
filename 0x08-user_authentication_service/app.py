@@ -90,6 +90,7 @@ def update_password():
         AUTH.update_password(reset_token, new_pass)
     except Exception:
         abort(403)
+    return jsonify({"email": user.email, "message": "Password updated"}), 200
 
 
 if __name__ == '__main__':
