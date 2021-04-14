@@ -45,14 +45,7 @@ class DB:
         -------
             `User` object
         """
-        if not kwargs:
-            raise InvalidRequestError
-        if not all(key in User.__table__.columns for key in kwargs):
-            raise InvalidRequestError
-        row = self._session.query(User).filter_by(**kwargs).first()
-        if not row:
-            raise NoResultFound
-        return row
+        return self._session.query(User).filter_by(**kwargs).one()
 
     def update_user(self, user_id: int, **kwargs) -> None:
         """ Method that update an user in the database """
