@@ -18,12 +18,11 @@ def basic():
 @app.route('/users', methods=['POST'], strict_slashes=False)
 def users() -> str:
     """ function that register an User """
-    data = dict(request.form)
-    email = data.get('email')
-    password = data.get('password')
+    email = request.form.get('email', '')
+    password = request.form.get('password', '')
     try:
         AUTH.register_user(email, password)
-        return jsonify({"email": f"{email}", "message": "user created"})
+        return jsonify({"email": email, "message": "user created"})
     except ValueError:
         return jsonify({"message": "email already registered"}), 400
 
@@ -31,9 +30,8 @@ def users() -> str:
 @app.route('/sessions', methods=['POST'], strict_slashes=False)
 def login() -> str:
     """ function that creater a user login """
-    data = dict(request.form)
-    email = data.get('email')
-    password = data.get('password')
+    email = request.form.get('email')
+    password = request.form.get('password')
 
     if (AUTH.valid_login(email, password)):
         session_id = AUTH.create_session(email)
