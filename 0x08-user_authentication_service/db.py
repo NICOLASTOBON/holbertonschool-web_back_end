@@ -36,16 +36,15 @@ class DB:
         return new_user
 
     def find_user_by(self, **kwargs) -> User:
-        """
-        Searches filtered by the method’s input arguments.
-        Args:
-        ----
-            arbitrary keyworded arguments
-        Returns:
-        -------
-            `User` object
-        """
-        return self._session.query(User).filter_by(**kwargs).one()
+        """ Returns first User in DB matching kwargs """
+        if not kwargs:
+            raise InvalidRequestError
+        if not all(key in User.__table__.columns for key in kwargs):
+            raise InvalidRequestError
+        row = self._session.query(User).filter_by(**kwargs).one()
+        if not row:
+            raise NoResultFound
+        return row
 
     def update_user(self, user_id: int, **kwargs) -> None:
         """ Method that update an user in the database """
