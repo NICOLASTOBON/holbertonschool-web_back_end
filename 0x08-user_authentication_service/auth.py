@@ -10,6 +10,16 @@ from user import User
 from sqlalchemy.orm.exc import NoResultFound
 
 
+def _hash_password(password: str) -> str:
+    """ function that tranform a string to hash """
+    return bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+
+
+def _generate_uuid() -> str:
+    """ function that generate a UUID """
+    return str(uuid.uuid4())
+
+
 class Auth:
     """Auth class to interact with the authentication database.
     """
@@ -93,13 +103,3 @@ class Auth:
                 )
         except Exception:
             raise ValueError
-
-
-def _hash_password(password: str) -> str:
-    """ function that tranform a string to hash """
-    return bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
-
-
-def _generate_uuid() -> str:
-    """ function that generate a UUID """
-    return str(uuid.uuid4())
