@@ -50,10 +50,12 @@ class TestGetJson(unittest.TestCase):
 class TestClass:
     """ class test"""
     def a_method(self):
+        """ method that return a number """
         return 42
 
     @memoize
     def a_property(self):
+        """ method that use a decorator"""
         return self.a_method()
 
 
