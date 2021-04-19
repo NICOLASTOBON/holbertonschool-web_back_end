@@ -3,7 +3,7 @@
 
 import unittest
 from unittest.mock import patch
-from client import GithubOrgClient
+from client import GitHubOrgClient
 from parameterized import parameterized
 
 
@@ -17,6 +17,6 @@ class TestGitHubOrgClient(unittest.TestCase):
     @patch('client.get_json')
     def test_org(self, name, mock_org):
         """ test for org function """
-        organization = GithubOrgClient(name)
+        organization = GitHubOrgClient(name)
         organization.org()
         mock_org.assert_called_once_with(f'https://api.github.com/orgs/{name}')
