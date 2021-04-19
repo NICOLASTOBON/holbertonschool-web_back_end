@@ -19,4 +19,6 @@ class TestGitHubOrgClient(unittest.TestCase):
         """ test for org function """
         organization = GitHubOrgClient(org)
         organization.org()
-        mock_org.assert_called_once_with(f'https://api.github.com/orgs/{org}')
+        mock_org.assert_called_once_with(
+                'https://api.github.com/orgs/{}'.format(org)
+            )
