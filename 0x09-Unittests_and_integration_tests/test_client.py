@@ -2,10 +2,8 @@
 """ test for client module """
 
 import unittest
-
-from client import GitHubOrgClient
-
 from unittest.mock import patch
+from client import GitHubOrgClient
 from parameterized import parameterized
 
 
