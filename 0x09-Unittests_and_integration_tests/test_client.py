@@ -7,12 +7,12 @@ from client import GithubOrgClient
 from parameterized import parameterized
 
 
-class TestGitHubOrgClient(unittest.TestCase):
-    """ class for client """
+class TestGithubOrgClient(unittest.TestCase):
+    """ Class for testing GithubOrgClient """
 
     @parameterized.expand([
-        ('google'),
-        ('abc')
+        ("google"),
+        ("abc")
     ])
     def test_org(self, org_name):
         """ Test function for client.GithubOrgClient.org """
