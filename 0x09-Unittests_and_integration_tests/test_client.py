@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """ test for client module """
-
 import unittest
 from unittest.mock import patch
 from client import GithubOrgClient
