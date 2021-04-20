@@ -8,7 +8,6 @@ from parameterized import parameterized
 
 class TestGithubOrgClient(unittest.TestCase):
     """ Class for testing """
-
     @parameterized.expand([
         ("google"),
         ("abc")
