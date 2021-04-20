@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-""" test for client module """
-import unittest
-from unittest.mock import patch
+""" This module tests the clients.py file """
+from unittest import mock
 from client import GithubOrgClient
-from parameterized import parameterized
+from fixtures import TEST_PAYLOAD
+from parameterized import parameterized, parameterized_class
+from unittest.mock import PropertyMock, patch
+import unittest
 
 
 class TestGithubOrgClient(unittest.TestCase):
