@@ -18,6 +18,4 @@ class TestGitHubOrgClient(unittest.TestCase):
     def test_org(self, org, mock_org):
         """ test for org function """
         site = GithubOrgClient(org)
-        site.org()
         self.assertEqual(site.org.return_value, mock_org.return_value)
-        mock_org.assert_called_once()
