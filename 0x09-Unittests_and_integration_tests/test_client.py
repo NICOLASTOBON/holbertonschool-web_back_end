@@ -14,8 +14,8 @@ class TestGithubOrgClient(unittest.TestCase):
         ("google"),
         ("abc")
     ])
-    def test_org(self, org_name):
+    @patch('client.GithubOrgClient.org')
+    def test_org(self, org_name, mock_org):
         """ Test function for client.GithubOrgClient.org """
-        with patch('client.GithubOrgClient.org') as mock_org:
-            client = GithubOrgClient(org_name)
-            self.assertEqual(client.org.return_value, mock_org.return_value)
+        client = GithubOrgClient(org_name)
+        self.assertEqual(client.org.return_value, mock_org.return_value)
