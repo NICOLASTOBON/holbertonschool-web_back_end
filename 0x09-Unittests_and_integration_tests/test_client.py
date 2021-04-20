@@ -18,3 +18,10 @@ class TestGithubOrgClient(unittest.TestCase):
         client = GithubOrgClient(org_name)
         client.org()
         mock_org.assert_called_once()
+
+    @patch('client.GithubOrgClient.org')
+    def test_public_repos_url(self, mock_org):
+        """ test for public_repos_url """
+        mock_org.return_value = {'repos_url': True}
+        client = GithubOrgClient('fake_org')
+        self.assertEqual(mock_org.return_value, client.org())
