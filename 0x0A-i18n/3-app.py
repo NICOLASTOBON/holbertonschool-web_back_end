@@ -28,11 +28,11 @@ def get_locale() -> str:
 @app.route('/')
 def basic_app() -> str:
     """ this is a basic app """
-    data = {
-        'home_title': gettext(u'home_title'),
-        'home_header': gettext(u'home_header')
-    }
-    return render_template('3-index.html', data=data)
+    return render_template(
+            '3-index.html',
+            home_title=gettext(u'home_title'),
+            home_header=gettext(u'home_header')
+        )
 
 
 if __name__ == '__main__':
