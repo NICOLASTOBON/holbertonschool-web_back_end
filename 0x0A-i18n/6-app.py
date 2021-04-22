@@ -37,16 +37,7 @@ def get_locale():
     locale = request.args.get('locale')
     if locale is not None and locale in Config.LANGUAGES:
         return locale
-    if g.user:
-        user_locale = g.user.get('locale')
-        if user_locale and user_locale in Config.LANGUAGES:
-            return user_locale
-    request_locale = request.accept_languages.best_match(
-            app.config['LANGUAGES']
-        )
-    if request_locale:
-        return request_locale
-    return Config.BABEL_DEFAULT_LOCALE
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
 def get_user(user_id) -> dict:
@@ -61,7 +52,6 @@ def before_request():
     if user_id:
         user_id = int(user_id)
     g.user = get_user(user_id)
-    g.locale = get_locale()
 
 
 @app.route("/", methods=["GET"], strict_slashes=False)
@@ -70,7 +60,7 @@ def home():
     home route
     return: template
     """
-    return render_template('6-index.html')
+    return render_template('5-index.html')
 
 
 if __name__ == "__main__":
