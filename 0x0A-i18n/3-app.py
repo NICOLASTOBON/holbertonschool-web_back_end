@@ -2,7 +2,7 @@
 """ app main """
 
 from flask import Flask, render_template, request
-from flask_babel import Babel
+from flask_babel import Babel, gettext
 
 
 app = Flask(__name__)
@@ -28,7 +28,11 @@ def get_locale():
 @app.route('/')
 def basic_app():
     """ this is a basic app """
-    return render_template('2-index.html')
+    data = {
+        'home_title': gettext(u'home_title'),
+        'home_header': gettext(u'home_header')
+    }
+    return render_template('3-index.html', data=data)
 
 
 if __name__ == '__main__':
