@@ -19,12 +19,6 @@ class Config(object):
 app.config.from_object(Config)
 
 
-@babel.localeselector
-def get_locale() -> str:
-    """get locale """
-    return request.accept_languages.best_match(app.config['LANGUAGES'])
-
-
 @app.route('/')
 def basic_app() -> Text:
     """ this is a basic app """
@@ -33,6 +27,12 @@ def basic_app() -> Text:
             home_title=gettext(u'home_title'),
             home_header=gettext(u'home_header')
         )
+
+
+@babel.localeselector
+def get_locale() -> str:
+    """get locale """
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
 if __name__ == '__main__':
