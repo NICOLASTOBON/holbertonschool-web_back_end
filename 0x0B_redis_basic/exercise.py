@@ -3,7 +3,7 @@
 
 import uuid
 import redis
-from typing import Any
+from typing import Union, Callable
 
 
 class Cache:
@@ -13,8 +13,15 @@ class Cache:
         self._redis = redis.Redis()
         self._redis.flushdb(asynchronous=True)
 
-    def store(self, data: Any) -> str:
+    def store(self, data: Union[str, bytes, int, float]) -> str:
         """ methdod that store data in redis """
         key = str(uuid.uuid4())
         self._redis.set(key, data)
         return key
+
+    def get(self, key: str, fn: Callable) -> Union[
+            str, bytes, int, float]:
+        """ return the the value """
+        if fn:
+            return fn(self._redis.get(key))
+        return self._redis.get(key)
