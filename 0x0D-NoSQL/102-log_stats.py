@@ -25,14 +25,8 @@ def print_logs(logs):
         [{'path': '/status'}, {'method': 'GET'}])
     print(f'{count_path} status check')
 
-
-def print_ips(collection):
-    """
-    function that print 10 of the most present IPs
-    in the collection nginx of the database logs
-    """
     print('IPs:')
-    ips_list = collection.aggregate([
+    ips_list = logs.aggregate([
         {'$group': {'_id': '$ip', 'count': {'$sum': 1}}},
         {'$sort': {'count': -1}},
         {'$limit': 10}
@@ -46,4 +40,3 @@ if __name__ == "__main__":
     client = MongoClient('mongodb://127.0.0.1:27017')
     logs = client.logs.nginx
     print_logs(logs)
-    print_ips(logs)
