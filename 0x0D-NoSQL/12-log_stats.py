@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 """  Log stats """
-
-
 from pymongo import MongoClient
 
 
@@ -10,13 +8,11 @@ def count_logs(collection, match):
     return collection.find(*match).count()
 
 
-if __name__ == "__main__":
-    client = MongoClient('mongodb://127.0.0.1:27017')
-    logs = client.logs.nginx
-    logs_len = count_logs(logs, [{}])
-
+def print_logs(logs):
+    """ function that print logs """
     method = ["GET", "POST", "PUT", "PATCH", "DELETE"]
 
+    logs_len = count_logs(logs, [{}])
     print(f'{logs_len} logs')
 
     print('Methods:')
@@ -28,3 +24,9 @@ if __name__ == "__main__":
         logs,
         [{'path': '/status'}, {'method': 'GET'}])
     print(f'{count_path} status check')
+
+
+if __name__ == "__main__":
+    client = MongoClient('mongodb://127.0.0.1:27017')
+    logs = client.logs.nginx
+    print_logs(logs)
