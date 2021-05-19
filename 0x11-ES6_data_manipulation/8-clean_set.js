@@ -6,5 +6,8 @@ export default function cleanSet(array, startString) {
       newString.push(value.replace(startString, ''));
     }
   }
+
+  if (!newString) return '';
+
   return newString.join('-');
 }
