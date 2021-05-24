@@ -37,4 +37,6 @@ module.exports = async function countStudents(path) {
   console.log(`Number of students: ${students.length}`);
   console.log(`Number of students in CS: ${studentsByCS.length}. List: ${studentsByCS.join(', ')}`);
   console.log(`Number of students in SWE: ${studentsBySWE.length}. List: ${studentsBySWE.join(', ')}`);
+
+  return { students, studentsByCS, studentsBySWE };
 };
