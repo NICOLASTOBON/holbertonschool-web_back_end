@@ -1,21 +1,20 @@
 const http = require('http');
 const countStudents = require('./3-read_file_async');
 
-const HOSTNAME = '127.0.0.1';
+const PATH = process.argv[2];
 const PORT = 1245;
-const DATABASE = process.argv[2];
 
-const app = http.createServer(async (req, res) => {
+async function router(req, res) {
   if (req.url === '/') {
     res.writeHead(200, { 'Content-Type': 'text/plain' });
     res.end('Hello Holberton School!');
   } else if (req.url === '/students') {
+    const { students, studentsByCS, studentsBySWE } = await countStudents(PATH);
     try {
-      const { students, csStudents, sweStudents } = await countStudents(DATABASE);
       res.write('This is the list of our students\n');
       res.write(`Number of students: ${students.length}\n`);
-      res.write(`Number of students in CS: ${csStudents.length}. List: ${csStudents.join(', ')}\n`);
-      res.write(`Number of students in SWE: ${sweStudents.length}. List: ${sweStudents.join(', ')}`);
+      res.write(`Number of students in CS: ${studentsByCS.length}. List: ${studentsByCS.join(', ')}\n`);
+      res.write(`Number of students in SWE: ${studentsBySWE.length}. List: ${studentsBySWE.join(', ')}`);
       res.end();
     } catch (error) {
       res.end(error.message);
@@ -24,6 +23,8 @@ const app = http.createServer(async (req, res) => {
     res.writeHead(404);
     res.end('Invalid request');
   }
-}).listen(PORT, HOSTNAME);
+}
+
+const app = http.createServer(router).listen(PORT);
 
 module.exports = app;
