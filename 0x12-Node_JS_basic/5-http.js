@@ -13,6 +13,7 @@ async function router(req, res) {
     res.write(`Number of students in SWE: ${studentsBySWE.length}. List: ${studentsBySWE.join(', ')}\n`);
     res.end();
   } else {
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
     res.write('Hello Holberton School!');
     res.end();
   }
