@@ -12,10 +12,13 @@ async function router(req, res) {
     res.write(`Number of students in CS: ${studentsByCS.length}. List: ${studentsByCS.join(', ')}\n`);
     res.write(`Number of students in SWE: ${studentsBySWE.length}. List: ${studentsBySWE.join(', ')}\n`);
     res.end();
-  } else {
+  } else if (req.url === '/') {
     res.writeHead(200, { 'Content-Type': 'text/plain' });
     res.write('Hello Holberton School!');
     res.end();
+  } else {
+    res.writeHead(404);
+    res.end('Invalid request');
   }
 }
 
