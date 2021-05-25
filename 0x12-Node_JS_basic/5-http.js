@@ -5,17 +5,20 @@ const PATH = process.argv[2];
 const PORT = 1245;
 
 async function router(req, res) {
-  const { students, studentsByCS, studentsBySWE } = await countStudents(PATH);
-
-  if (req.url === '/students') {
-    res.write(`Number of students: ${students.length}\n`);
-    res.write(`Number of students in CS: ${studentsByCS.length}. List: ${studentsByCS.join(', ')}\n`);
-    res.write(`Number of students in SWE: ${studentsBySWE.length}. List: ${studentsBySWE.join(', ')}\n`);
-    res.end();
-  } else if (req.url === '/') {
+  if (req.url === '/') {
     res.writeHead(200, { 'Content-Type': 'text/plain' });
-    res.write('Hello Holberton School!');
-    res.end();
+    res.end('Hello Holberton School!');
+  } else if (req.url === '/students') {
+    const { students, studentsByCS, studentsBySWE } = await countStudents(PATH);
+    try {
+      res.write('This is the list of our students\n');
+      res.write(`Number of students: ${students.length}\n`);
+      res.write(`Number of students in CS: ${studentsByCS.length}. List: ${studentsByCS.join(', ')}\n`);
+      res.write(`Number of students in SWE: ${studentsBySWE.length}. List: ${studentsBySWE.join(', ')}`);
+      res.end();
+    } catch (error) {
+      res.end(error.message);
+    }
   } else {
     res.writeHead(404);
     res.end('Invalid request');
