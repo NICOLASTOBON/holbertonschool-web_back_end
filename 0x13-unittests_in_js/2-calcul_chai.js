@@ -4,11 +4,11 @@ const calculateNumber = (type, a, b) => {
 
   switch (type) {
     case 'SUM':
-      return num1 + num2
+      return (num1) + (num2)
     case 'SUBTRACT':
-      return num1 - num2
+      return (num1) - (num2)
     case 'DIVIDE':
-      return num2 === 0 ? 'Error': num1 / num2;
+      return num2 === 0 ? 'Error': (num1) / (num2);
   }
 }
 
