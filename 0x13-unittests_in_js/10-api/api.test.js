@@ -56,9 +56,10 @@ describe('GET /available_payments', () => {
 
 describe('POST /login', () => {
   it('[Correct status] 200', (done) => {
-    request.post(URL + 'login',
-      { form: { "userName": "Betty" } },
-      (err, httpResponse, body) => {
+    const options = {
+      json: { "userName": "Betty" }
+    }
+    request.post(URL + 'login', options, (err, httpResponse, body) => {
         expect(httpResponse.statusCode).to.equal(200);
         done()
     })
