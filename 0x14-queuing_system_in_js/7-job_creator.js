@@ -54,6 +54,6 @@ for (const info of jobs) {
                 .save(() => console.log(`Notification job created: ${job.id}`))
 
   job.on('complete', () => console.log(`Notification job ${job.id} completed`))
-  job.on('failed', () => console.log(`Notification job ${job.id} failed: ERROR`))
+  job.on('failed', (err) => console.log(`Notification job ${job.id} failed: ${err}`))
   job.on('progress', (progress, data) => console.log(`Notification job ${job.id} ${progress}% complete`))
 }
