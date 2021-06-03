@@ -49,11 +49,10 @@ const jobs = [
 ];
 
 for (const info of jobs) {
-  const job = queue
-                .create('push_notification_code_2', info)
-                .save(() => console.log(`Notification job created: ${job.id}`))
+  const job = queue.create('push_notification_code_2', info)
 
   job.on('complete', () => console.log(`Notification job ${job.id} completed`))
   job.on('failed', (err) => console.log(`Notification job ${job.id} failed: ${err}`))
   job.on('progress', (progress, data) => console.log(`Notification job ${job.id} ${progress}% complete`))
+  job.save(() => console.log(`Notification job created: ${job.id}`))
 }
